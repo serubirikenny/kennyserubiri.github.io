@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Serubiri Kenny — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0f0f0f;
+    --paper: #f5f2ee;
+    --cream: #ede9e3;
+    --accent: #1a5c4a;
+    --accent2: #c8a96e;
+    --mid: #6b6460;
+    --card: #ffffff;
+    --border: #d9d4cc;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(245,242,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 60px;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--accent); letter-spacing: 0.02em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--mid); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    padding: 80px 2.5rem 0;
+    max-width: 1200px; margin: 0 auto;
+    gap: 4rem;
+  }
+  .hero-text { padding: 2rem 0; }
+  .hero-eyebrow {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before { content:''; display:block; width:32px; height:2px; background:var(--accent); }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1; color: var(--ink); margin-bottom: 0.4rem;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-roles {
+    font-size: 1rem; color: var(--mid); margin-bottom: 1.8rem; font-weight: 400;
+    display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;
+  }
+  .role-sep { color: var(--accent2); }
+  .hero-bio { font-size: 1rem; color: #4a4644; line-height: 1.8; max-width: 520px; margin-bottom: 2rem; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 0.75rem 1.8rem; border-radius: 4px;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; text-decoration: none;
+    transition: all .2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #123f33; }
+  .btn-outline { border: 1.5px solid var(--accent); color: var(--accent); }
+  .btn-outline:hover { background: var(--accent); color: #fff; }
+  .hero-visual {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .hero-card {
+    width: 340px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 2.2rem 2rem; box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    position: relative; z-index: 2;
+  }
+  .hero-card-avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: white;
+    margin-bottom: 1.2rem;
+  }
+  .hero-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin-bottom: 0.2rem; }
+  .hero-card p { font-size: 0.82rem; color: var(--mid); margin-bottom: 1.5rem; }
+  .card-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .card-stat { background: var(--cream); border-radius: 8px; padding: 0.85rem 1rem; }
+  .card-stat-num { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--accent); }
+  .card-stat-label { font-size: 0.72rem; color: var(--mid); margin-top: 0.1rem; }
+  .hero-bg-circle {
+    position: absolute; width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,92,74,0.07) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    z-index: 1;
+  }
+  .contact-mini { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .contact-pill {
+    font-size: 0.75rem; color: var(--mid); background: var(--cream);
+    border-radius: 20px; padding: 0.3rem 0.85rem; display: flex; align-items: center; gap: 0.4rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2.5rem; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before { content:''; display:block; width:24px; height:2px; background: var(--accent); }
+  h2 {
+    font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem);
+    margin-bottom: 1rem; line-height: 1.2;
+  }
+  .section-intro { font-size: 1rem; color: var(--mid); max-width: 600px; margin-bottom: 3rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--cream); border-radius: 24px; max-width: 100%; }
+  .about-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 2.5rem; display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center; }
+  .about-details { display: flex; flex-direction: column; gap: 0.85rem; }
+  .detail-row { display: flex; gap: 1rem; font-size: 0.88rem; }
+  .detail-key { color: var(--mid); min-width: 80px; font-weight: 500; }
+  .detail-val { color: var(--ink); }
+  .about-text p { font-size: 1rem; color: #4a4644; line-height: 1.85; margin-bottom: 1rem; }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content:''; position:absolute; left:0; top:8px; bottom:8px;
+    width: 2px; background: var(--border);
+  }
+  .tl-item { position: relative; margin-bottom: 2.8rem; }
+  .tl-dot {
+    position: absolute; left: -2.4rem; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--paper);
+    box-shadow: 0 0 0 3px rgba(26,92,74,0.15);
+  }
+  .tl-meta { font-size: 0.76rem; color: var(--accent2); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .tl-co { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 0.1rem; }
+  .tl-title { font-size: 0.88rem; color: var(--mid); margin-bottom: 0.85rem; font-weight: 500; }
+  .tl-body { font-size: 0.9rem; color: #4a4644; line-height: 1.75; }
+  .tl-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.85rem; }
+  .tag { font-size: 0.72rem; background: var(--cream); border: 1px solid var(--border); color: var(--mid); padding: 0.25rem 0.7rem; border-radius: 20px; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.5rem; transition: transform .2s, box-shadow .2s;
+  }
+  .skill-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .skill-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .skill-bar { height: 4px; background: var(--cream); border-radius: 2px; overflow: hidden; }
+  .skill-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; transition: width 1s ease; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 2rem; transition: transform .2s, box-shadow .2s; position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.09); }
+  .project-num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--cream); line-height: 1; margin-bottom: 0.5rem; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.88rem; color: var(--mid); line-height: 1.7; margin-bottom: 1rem; }
+
+  /* ── CERTS ── */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .cert-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .cert-icon { width: 40px; height: 40px; border-radius: 8px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .cert-name { font-weight: 600; font-size: 0.85rem; line-height: 1.3; }
+  .cert-issuer { font-size: 0.75rem; color: var(--mid); margin-top: 0.15rem; }
+
+  /* ── EDUCATION ── */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .edu-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 2rem; position: relative; overflow: hidden;
+  }
+  .edu-card::after {
+    content:''; position:absolute; bottom:-30px; right:-30px;
+    width:100px; height:100px; border-radius:50%;
+    background: radial-gradient(circle, rgba(26,92,74,0.06), transparent);
+  }
+  .edu-degree { font-family: 'DM Serif Display', serif; font-size: 1.15rem; margin-bottom: 0.25rem; }
+  .edu-school { font-size: 0.88rem; color: var(--accent); font-weight: 600; margin-bottom: 0.35rem; }
+  .edu-meta { font-size: 0.8rem; color: var(--mid); margin-bottom: 1rem; }
+  .edu-gpa { display: inline-block; background: var(--cream); border-radius: 20px; padding: 0.25rem 0.85rem; font-size: 0.78rem; font-weight: 600; color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 2.5rem; font-size: 0.82rem;
+  }
+  footer span { color: var(--accent2); }
+
+  /* ── FADE IN ── */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; padding-top: 90px; }
+    .hero-visual { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1.2rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 3.5rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-text fade-in">
+    <div class="hero-eyebrow">Health Informatics Professional</div>
+    <h1>Serubiri <em>Kenny</em></h1>
+    <div class="hero-roles">
+      <span>Data Analyst</span><span class="role-sep">·</span>
+      <span>Health Informatics</span><span class="role-sep">·</span>
+      <span>IT Systems</span>
+    </div>
+    <p class="hero-bio">
+      Health Informatics professional with an MS from Northeastern University (GPA: 3.91), 
+      transforming complex health datasets into actionable insights. Bridging the gap between 
+      clinical and technical domains through data analytics, decision support systems, and 
+      evidence-based analysis.
+    </p>
+    <div class="hero-ctas">
+      <a href="#experience" class="btn btn-primary">View Experience</a>
+      <a href="#projects" class="btn btn-outline">See Projects</a>
+    </div>
+  </div>
+  <div class="hero-visual fade-in" style="animation-delay:.2s">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-card">
+      <div class="hero-card-avatar">SK</div>
+      <h3>Serubiri Kenny</h3>
+      <p>Boston, Massachusetts</p>
+      <div class="card-stat-row">
+        <div class="card-stat">
+          <div class="card-stat-num">3.91</div>
+          <div class="card-stat-label">MS GPA</div>
+        </div>
+        <div class="card-stat">
+          <div class="card-stat-num">5+</div>
+          <div class="card-stat-label">Yrs Experience</div>
+        </div>
+        <div class="card-stat">
+          <div class="card-stat-num">2K+</div>
+          <div class="card-stat-label">Students Impacted</div>
+        </div>
+        <div class="card-stat">
+          <div class="card-stat-num">10+</div>
+          <div class="card-stat-label">Tech Tools</div>
+        </div>
+      </div>
+      <div class="contact-mini">
+        <span class="contact-pill">📍 Boston, MA</span>
+        <span class="contact-pill">✉️ serubiri.k@northeastern.edu</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" style="background:var(--cream); margin-top:4rem;">
+  <div class="about-inner">
+    <div class="fade-in">
+      <div class="section-label">Who I Am</div>
+      <h2>About Me</h2>
+      <div class="about-details">
+        <div class="detail-row"><span class="detail-key">Name</span><span class="detail-val">Serubiri Kenny</span></div>
+        <div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val">978-930-2293</span></div>
+        <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">serubiri.k@northeastern.edu</span></div>
+        <div class="detail-row"><span class="detail-key">Location</span><span class="detail-val">Boston, Massachusetts</span></div>
+        <div class="detail-row"><span class="detail-key">Degree</span><span class="detail-val">MS Health Informatics, Northeastern</span></div>
+      </div>
+    </div>
+    <div class="about-text fade-in">
+      <p>
+        I'm a Boston-based Health Informatics professional with deep roots in data analytics, 
+        clinical decision support, and IT systems. With experience spanning healthcare analytics, 
+        real estate data, and tech infrastructure across Uganda and the United States, I bring 
+        a uniquely cross-disciplinary perspective to every problem.
+      </p>
+      <p>
+        Whether it's uncovering socioeconomic drivers behind hospital readmission rates, 
+        designing NLP-powered clinical tools, or building ROI models for digital health startups, 
+        I translate complex data into decisions that matter. My toolkit spans R, Python, SQL, 
+        Tableau, Power BI, and beyond — but what truly sets me apart is the ability to bridge 
+        clinical insight with technical execution.
+      </p>
+      <p>
+        I co-founded a startup, led ICT programs for 2,000+ students in Uganda, and graduated 
+        with a 3.91 GPA. I don't just analyze problems — I build solutions around them.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2>Work Experience</h2>
+  <p class="section-intro">A track record of delivering data-driven impact across healthcare, real estate, technology, and education.</p>
+  <div class="timeline">
+
+    <div class="tl-item fade-in">
+      <div class="tl-dot"></div>
+      <div class="tl-meta">Sep 2024 – Mar 2025</div>
+      <div class="tl-co">Student's Landing</div>
+      <div class="tl-title">Data Analyst · Boston, MA</div>
+      <div class="tl-body">
+        Spearheaded market trend analysis across target neighborhoods, providing actionable insights that 
+        informed property acquisition and pricing strategies — contributing to a <strong>15% increase in gross profit margin</strong>. 
+        Developed Power BI KPI dashboards, conducted predictive modeling using linear regression and machine 
+        learning, and performed A/B testing on marketing campaigns resulting in a <strong>10% reduction in customer acquisition cost</strong>. 
+        Applied geospatial (GIS) analysis to identify high-potential investment zones.
+      </div>
+      <div class="tl-tags">
+        <span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">GIS</span>
+        <span class="tag">A/B Testing</span><span class="tag">Predictive Modeling</span>
+      </div>
+    </div>
+
+    <div class="tl-item fade-in">
+      <div class="tl-dot"></div>
+      <div class="tl-meta">Sep 2023 – Sep 2024</div>
+      <div class="tl-co">FingerMetrics LLC</div>
+      <div class="tl-title">System Administrator · Chelmsford, MA</div>
+      <div class="tl-body">
+        Resolved 50+ critical hardware and peripheral malfunctions, reducing average equipment downtime by 
+        <strong>15%</strong>. Managed deployment and maintenance of IT equipment for 30+ staff, maintaining 
+        <strong>99.9% system availability</strong>. Performed data quality assurance on system logs to identify 
+        and resolve anomalies across Windows/macOS environments.
+      </div>
+      <div class="tl-tags">
+        <span class="tag">Windows/macOS</span><span class="tag">Data QA</span>
+        <span class="tag">Network Admin</span><span class="tag">IT Infrastructure</span>
+      </div>
+    </div>
+
+    <div class="tl-item fade-in">
+      <div class="tl-dot"></div>
+      <div class="tl-meta">Jun 2018 – Jul 2023</div>
+      <div class="tl-co">Craft Silicon Foundation</div>
+      <div class="tl-title">Product Operations Lead · Kampala, Uganda</div>
+      <div class="tl-body">
+        Managed the foundation's physical and virtual infrastructure — including a mobile ICT bus with 
+        computers, servers, and solar-powered internet — while designing and delivering ICT-based skilling 
+        programs for over <strong>2,000 students</strong>. Created data visualization reports to track 
+        program reach and outcomes, supporting data-driven evaluation and stakeholder reporting.
+      </div>
+      <div class="tl-tags">
+        <span class="tag">Data Visualization</span><span class="tag">Program Management</span>
+        <span class="tag">ICT Training</span><span class="tag">Infrastructure</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--cream); border-radius:24px; max-width:100%;">
+  <div style="max-width:1200px; margin:0 auto; padding:5rem 2.5rem;">
+    <div class="section-label">Portfolio</div>
+    <h2>Featured Projects</h2>
+    <p class="section-intro">Healthcare analytics, clinical decision support, and digital health — built with data, shaped by impact.</p>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-num">01</div>
+        <div class="project-title">HRRP Readmissions Analysis</div>
+        <div class="project-desc">
+          Analyzed 1,500+ hospital records from CMS Hospital Compare (2020–2023) using linear regression, 
+          ANOVA, and correlation analysis in R. Found socioeconomic factors (uninsured rate r=0.61, 
+          income r=-0.54) to be stronger predictors of 30-day readmission rates than hospital size or ownership type.
+        </div>
+        <div class="tl-tags">
+          <span class="tag">R Studio</span><span class="tag">Tableau</span>
+          <span class="tag">Regression</span><span class="tag">CMS Data</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">02</div>
+        <div class="project-title">LogMed — Clinical DSS</div>
+        <div class="project-desc">
+          Designed an NLP-based clinical note summarization decision support system with Epic EHR integration. 
+          Projected 114% ROI ($600K benefit vs. $280K cost) through 30% reduction in clinician documentation 
+          time and 25% fewer missed handoff findings.
+        </div>
+        <div class="tl-tags">
+          <span class="tag">NLP</span><span class="tag">Epic EHR</span>
+          <span class="tag">ROI Analysis</span><span class="tag">Clinical DSS</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">03</div>
+        <div class="project-title">Zuri Fertility ROI Analysis</div>
+        <div class="project-desc">
+          Comprehensive ROI analysis for a digital AI-powered fertility clinic. Quantified 25–50%+ patient 
+          ROI through 20% IVF cost reduction ($4K–$8K savings per cycle), 30% faster time-to-diagnosis, 
+          and 5–10% IVF success rate improvement via AI-personalized protocols.
+        </div>
+        <div class="tl-tags">
+          <span class="tag">ROI Modeling</span><span class="tag">Digital Health</span>
+          <span class="tag">AI/ML</span><span class="tag">Healthcare Finance</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">04</div>
+        <div class="project-title">Travel Application</div>
+        <div class="project-desc">
+          Full-stack application integrating Geolocation and Google Maps API to surface nearby restaurants, 
+          hotels, and attractions. Built asynchronous data fetching from Rapid APIs with a responsive 
+          HTML/CSS/JavaScript front end.
+        </div>
+        <div class="tl-tags">
+          <span class="tag">JavaScript</span><span class="tag">APIs</span>
+          <span class="tag">JSON</span><span class="tag">Responsive UI</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-num">05</div>
+        <div class="project-title">Sowani — Reservations Startup</div>
+        <div class="project-desc">
+          Co-founded a ticketing and reservations platform in Uganda serving 2,000+ restaurants. 
+          Placed <strong>3rd in the MTN Open API Challenge 2019</strong>, competing against top 
+          tech startups in East Africa.
+        </div>
+        <div class="tl-tags">
+          <span class="tag">Startup</span><span class="tag">MTN API Challenge</span>
+          <span class="tag">Product Dev</span><span class="tag">Uganda</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Toolkit</div>
+  <h2>Skills & Competencies</h2>
+  <p class="section-intro">Technical depth paired with healthcare domain knowledge.</p>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">R Studio</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Python</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">SQL / MySQL</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📈</div>
+      <div class="skill-name">Tableau</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-name">Power BI</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">JavaScript</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🏥</div>
+      <div class="skill-name">EHR / Epic</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🗺️</div>
+      <div class="skill-name">GIS / Geospatial</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic Background</div>
+  <h2>Education</h2>
+  <p class="section-intro">Formally trained in both computer science and health informatics.</p>
+  <div class="edu-grid">
+    <div class="edu-card fade-in">
+      <div class="edu-degree">Master of Science — Health Informatics</div>
+      <div class="edu-school">Northeastern University</div>
+      <div class="edu-meta">Boston, MA · Jan 2025 – Apr 2026</div>
+      <span class="edu-gpa">GPA: 3.91 / 4.0</span>
+    </div>
+    <div class="edu-card fade-in">
+      <div class="edu-degree">BSc. Computer Science</div>
+      <div class="edu-school">Makerere University</div>
+      <div class="edu-meta">Kampala, Uganda · Oct 2013 – Jan 2018</div>
+      <span class="edu-gpa">GPA: 3.5 / 4.0</span>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section style="padding-top:0; max-width:1200px; margin:0 auto; padding-bottom:5rem; padding-left:2.5rem; padding-right:2.5rem;">
+  <div class="section-label">Credentials</div>
+  <h2>Licenses & Certifications</h2>
+  <br/>
+  <div class="certs-grid">
+    <div class="cert-card fade-in">
+      <div class="cert-icon">🔍</div>
+      <div><div class="cert-name">Google IT Support Professional</div><div class="cert-issuer">Google</div></div>
+    </div>
+    <div class="cert-card fade-in">
+      <div class="cert-icon">📡</div>
+      <div><div class="cert-name">Certified Splunk Core User</div><div class="cert-issuer">Splunk</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Serubiri Kenny</span> · Boston, Massachusetts · serubiri.k@northeastern.edu</p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Animate skill bars on scroll
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const fills = e.target.querySelectorAll('.skill-fill');
+        fills.forEach(f => { const w = f.style.width; f.style.width = '0'; setTimeout(() => f.style.width = w, 100); });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skills-grid').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>
